@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="srResInsert">
+		INSERT INTO FACILITY
+		VALUES(FAC_SEQ.NEXTVAL, '독서실', ?, SYSDATE, TO_DATE( ? || '/09:00:00', 'RRRR/MM/DD/HH24:MI:SS'), TO_DATE(? || '/21:00:00', 'RRRR/MM/DD/HH24:MI:SS'), ?, DEFAULT)	
+	</entry>
+	<entry key="srDateList">
+		SELECT
+			     TO_CHAR(FC_START, 'YYYY-fmMM-DD') AS FC_START
+	       FROM FACILITY
+	       WHERE U_NO = ?
+	         AND FC_NAME = '독서실'
+	         GROUP BY FC_START
+	         ORDER BY FC_START
+	</entry>
+	
+	<entry key="getListCount">
+		SELECT
+			  COUNT(*)
+		 FROM FACILITY
+		 WHERE U_NO = ?
+	</entry>
+	<entry key="getWriterListCount">
+		SELECT
+			  COUNT(*)
+		 FROM FACILITY 
+		 JOIN MEMBER USING(U_NO)
+		WHERE U_NO = ?
+		  AND FC_NAME = '독서실'
+	</entry>
+	<entry key="selectsearchList">
+		SELECT
+		     FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, FC_STATUS
+		FROM(SELECT ROWNUM RNUM
+				  , FLIST.*
+		    FROM(SELECT
+                    FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+           WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+           WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+           ELSE '사용중'
+           END AS FC_STATUS
+                     FROM FACILITY 
+                     JOIN MEMBER USING (U_NO)
+                     WHERE FC_NAME = '독서실'
+                     AND U_NO = ?
+                     ORDER BY FC_NO DESC) FLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="selecWriterList">
+		        SELECT
+		     FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, FC_STATUS
+		FROM(SELECT ROWNUM RNUM
+				  , FLIST.*
+		    FROM(SELECT
+                        FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+           WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+           WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+           ELSE '사용중'
+           END AS FC_STATUS
+                     FROM FACILITY 
+                     JOIN MEMBER USING (U_NO)
+                     WHERE FC_NAME = '독서실'
+                     AND EXTRACT(MONTH FROM FC_START) = SUBSTR( ?, 6, 2)
+                     AND U_NO = ?
+                     ORDER BY FC_NO DESC) FLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+
+	</entry>    
+	
+	
+	
+	<entry key="mcResInsert">
+		INSERT INTO FACILITY
+		VALUES(FAC_SEQ.NEXTVAL, '멀티코트장', ?, SYSDATE, TO_DATE( ? || '/09:00:00', 'RRRR/MM/DD/HH24:MI:SS'), TO_DATE(? || '/21:00:00', 'RRRR/MM/DD/HH24:MI:SS'), ?, DEFAULT)	
+	</entry>
+	
+	<entry key="mcDateList">
+		SELECT
+			     TO_CHAR(FC_START, 'YYYY-fmMM-DD') AS FC_START
+	       FROM FACILITY
+	       WHERE U_NO = ?
+	         AND FC_NAME = '멀티코트장'
+	         GROUP BY FC_START
+	         ORDER BY FC_START
+	</entry>
+	 
+	
+	<entry key="selectsearchMultiList">
+		SELECT
+		     FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, FC_STATUS
+		FROM(SELECT ROWNUM RNUM
+				  , FLIST.*
+		    FROM(SELECT
+                    FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+           WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+           WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+           ELSE '사용중'
+           END AS FC_STATUS
+                     FROM FACILITY 
+                     JOIN MEMBER USING (U_NO)
+                     WHERE FC_NAME = '멀티코트장'
+                     AND U_NO = ?
+                     ORDER BY FC_NO DESC) FLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>   
+	
+	<entry key="selecWriterMultiList">
+		      SELECT
+		     FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, FC_STATUS
+		FROM(SELECT ROWNUM RNUM
+				  , FLIST.*
+		    FROM(SELECT
+                        FC_NO
+			, FC_NAME
+			, FC_SEAT_NO
+			, FC_DATE
+			, FC_START
+			, FC_END
+			, U_NO
+			, CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+           WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+           WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+           ELSE '사용중'
+           END AS FC_STATUS
+                     FROM FACILITY 
+                     JOIN MEMBER USING (U_NO)
+                     WHERE FC_NAME = '멀티코트장'
+                     AND EXTRACT(MONTH FROM FC_START) = SUBSTR( ?, 6, 2)
+                     AND U_NO = ?
+                     ORDER BY FC_NO DESC) FLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>   
+</properties>

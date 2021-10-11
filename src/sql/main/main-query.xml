@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="weekTodayList">
+		SELECT
+		        SC_NO
+		      , SC_TITLE
+		      , SC_CATE_NAME
+		      FROM SC_SCHEDULE
+		      JOIN SC_CATEGORY USING(SC_CATE_CODE)
+		     WHERE TO_CHAR(SC_OPEN_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+		     AND SC_STATUS = 'Y'
+	</entry>
+	<entry key="noticeList">
+		SELECT
+		       N_NO
+		     , N_TITLE
+		     , ENROLL_DATE
+		     , M_NICK
+		     FROM NOTICE
+		     JOIN INFO_MANAGER USING(M_NO)
+		     WHERE STATUS = 'Y'
+		     ORDER BY N_NO DESC	
+	</entry>
+	<entry key="complaintList">
+		SELECT
+		       C_NO
+		     , C_TITLE
+		     , C_ENROLL_DATE
+		     , U_NICKNAME
+		     , R_NAME
+		     , R_DONG
+		     , R_HO
+		     FROM COMPLAINT
+		     JOIN MEMBER USING(U_NO)
+		     JOIN INFO_RESIDENT USING(R_NO)
+		     WHERE C_REPLY_COUNT = 0
+		     
+	</entry>
+	<entry key="facilList">
+    SELECT
+       FC_NO
+     , FC_NAME
+     , FC_SEAT_NO
+     , FC_SEAT_TYPE
+     , U_ID
+     , R_NAME
+     , U_PHONE
+     , FC_DATE
+     , FC_START
+     , FC_END
+     , FC_STATUS
+     FROM (
+        SELECT
+       FC_NO
+     , FC_NAME
+     , FC_SEAT_NO
+     , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+     , U_ID
+     , R_NAME
+     , U_PHONE
+     , FC_DATE
+     , FC_START
+     , FC_END
+     , CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+           WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+           WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+           ELSE '사용중'
+           END AS FC_STATUS
+     FROM FACILITY
+     JOIN MEMBER USING(U_NO)
+     JOIN INFO_RESIDENT USING(R_NO)
+     ORDER BY FC_DATE DESC
+     )
+     WHERE TO_CHAR(FC_START, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</entry>
+	<entry key="visitCarList">
+		SELECT
+		       VC_ID
+		     , VC_DATE
+		     , VC_NO
+		     , VC_PHONE
+		     , R_DONG
+		     , R_HO
+		     , VC_PURPOSE
+		     , R_NAME
+		     , VC_STATUS
+		     FROM MEMBER_VISIT_HISTORY
+		     JOIN MEMBER USING(U_NO)
+		     JOIN INFO_RESIDENT USING(R_NO)
+		     WHERE TO_CHAR(VC_DATE, 'YYYY-MM-DD') = TO_CHAR(SYSDATE, 'YYYY-MM-DD')
+	</entry>
+</properties>

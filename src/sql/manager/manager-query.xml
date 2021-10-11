@@ -1,0 +1,151 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="managerLogin">
+		SELECT 
+			   M_NO
+		     , M_ID
+		     , M_PASSWORD
+		     , M_NAME
+		     , M_NICK
+		     , M_PHONE
+		     , M_JOBCODE
+		     , M_JOBNAME
+		     FROM INFO_MANAGER
+		     JOIN JOBCODE_MANAGER USING(M_JOBCODE)
+		     WHERE M_ID = ?
+		       AND M_PASSWORD = ?
+			   
+	</entry>
+	<entry key="managerList">
+	SELECT
+         *
+		  FROM(SELECT
+		       ROWNUM RWM
+		     , M_NO
+		     , M_ID
+		     , M_PASSWORD
+		     , M_NAME
+		     , M_NICK
+		     , M_PHONE
+		     , M_JOBCODE
+		     , M_JOBNAME
+		  FROM INFO_MANAGER
+		  JOIN JOBCODE_MANAGER USING(M_JOBCODE)
+		  ORDER BY M_JOBCODE DESC, M_NO)
+		  WHERE RWM BETWEEN ? AND ?
+	</entry>
+	<entry key="managerIdList">
+		SELECT
+         *
+		  FROM(SELECT
+		       ROWNUM RWM
+		     , M_NO
+		     , M_ID
+		     , M_PASSWORD
+		     , M_NAME
+		     , M_NICK
+		     , M_PHONE
+		     , M_JOBCODE
+		     , M_JOBNAME
+		  FROM INFO_MANAGER
+		  JOIN JOBCODE_MANAGER USING(M_JOBCODE)
+		  WHERE M_ID LIKE '%' || ? || '%'
+		  ORDER BY M_JOBCODE DESC, M_NO)
+		  WHERE RWM BETWEEN ? AND ?
+            
+	</entry>
+	<entry key="managerNameList">
+		SELECT
+         *
+		  FROM(SELECT
+		       ROWNUM RWM
+		     , M_NO
+		     , M_ID
+		     , M_PASSWORD
+		     , M_NAME
+		     , M_NICK
+		     , M_PHONE
+		     , M_JOBCODE
+		     , M_JOBNAME
+		  FROM INFO_MANAGER
+		  JOIN JOBCODE_MANAGER USING(M_JOBCODE)
+		  WHERE M_NAME LIKE '%' || ? || '%'
+		  ORDER BY M_JOBCODE DESC, M_NO
+		  )
+		  WHERE RWM BETWEEN ? AND ?
+            
+	</entry>
+	
+	<entry key="getListCount">
+		SELECT
+               COUNT(*) AS COUNT
+          FROM INFO_MANAGER
+	</entry>
+	<entry key="getListIdCount">
+		 SELECT
+               COUNT(*) AS COUNT
+          FROM INFO_MANAGER
+          WHERE M_ID LIKE '%' || ? || '%'
+	</entry>
+	<entry key="getListNameCount">
+		 SELECT
+               COUNT(*) AS COUNT
+          FROM INFO_MANAGER
+          WHERE M_NAME LIKE '%' || ? || '%'
+	</entry>
+	<entry key="idCheck">
+		SELECT
+		       COUNT(*) AS COUNT
+		  FROM INFO_MANAGER
+		 WHERE M_ID = ?
+	</entry>
+	<entry key="createManager">
+		INSERT INTO INFO_MANAGER
+			   (
+			   	M_NO
+			  , M_ID
+			  , M_PASSWORD
+			  , M_NAME
+			  , M_NICK
+			  , M_PHONE
+			  , M_JOBCODE
+			   )
+		VALUES
+			   (
+			   	 ?
+			   , ?
+			   , ?
+			   , ?
+			   , DEFAULT
+			   , ?
+			   , 'M_CODE1'
+			   )
+	</entry>
+	<entry key="classManager">
+		SELECT
+		       M_NO
+		     , M_ID
+		     , M_PASSWORD
+		     , M_NAME
+		     , M_NICK
+		     , M_PHONE
+		     , M_JOBCODE
+		 FROM INFO_MANAGER
+	    WHERE M_NO = ?
+	</entry>
+	<entry key="classChangeManager">
+		UPDATE INFO_MANAGER
+		SET 
+			M_JOBCODE = ?
+		  , M_NICK = DECODE(?, 'M_CODE1', '관리자', '총관리자' )
+	  WHERE M_NO = ?
+	</entry>
+	<entry key="infoChangeManager">
+		UPDATE INFO_MANAGER
+		   SET M_PASSWORD = ?
+     		 , M_PHONE = ?
+         WHERE M_NO = ?
+           AND M_PASSWORD = ?
+	</entry>
+</properties>

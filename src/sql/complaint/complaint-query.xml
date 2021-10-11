@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM
+"http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="getListCount">
+		SELECT
+			  COUNT(*)
+		 FROM COMPLAINT
+		WHERE C_STATUS = 'Y'
+	</entry>
+	<entry key="getTitleListCount">
+		SELECT
+			  COUNT(*)
+		 FROM COMPLAINT
+		WHERE C_STATUS = 'Y'
+		  AND C_TITLE LIKE '%' || ? || '%'
+	</entry>
+	<entry key="getContentListCount">
+		SELECT
+			  COUNT(*)
+		 FROM COMPLAINT
+		WHERE C_STATUS = 'Y'
+		  AND C_CONTENT LIKE '%' || ? || '%'
+	</entry>
+	<entry key="getWriterListCount">
+		SELECT
+			  COUNT(*)
+		 FROM COMPLAINT 
+		 JOIN MEMBER USING(U_NO)
+		 JOIN INFO_RESIDENT USING(R_NO)
+		WHERE C_STATUS = 'Y'
+		  AND U_ID LIKE '%' || ? || '%'
+	</entry>
+	<entry key="selectsearchList">
+		 SELECT
+		     C_NO
+			,	C_TITLE
+			,	C_CONTENT
+			,	C_ENROLL_DATE
+			,	C_MODIFY_DATE
+			,	C_OPEN
+			,	C_STATUS
+			,	U_NO
+			,   U_ID
+			,   R_DONG
+            ,   R_HO
+            ,   R_NAME
+            ,   C_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , CLIST.*
+		    FROM(SELECT
+                    *
+                     FROM COMPLAINT B
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE C_STATUS = 'Y'
+                    ORDER BY C_NO DESC) CLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecTitleList">
+		SELECT
+		     C_NO
+			,	C_TITLE
+			,	C_CONTENT
+			,	C_ENROLL_DATE
+			,	C_MODIFY_DATE
+			,	C_OPEN
+			,	C_STATUS
+			,	U_NO
+			,   U_ID
+			,   R_DONG
+            ,   R_HO
+            ,   R_NAME
+            ,   C_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , CLIST.*
+		    FROM(SELECT
+                    *
+                     FROM COMPLAINT B
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE C_STATUS = 'Y'
+                    AND C_TITLE LIKE '%' || ? || '%'
+                    ORDER BY C_NO DESC) CLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecContentList">
+		SELECT
+		     C_NO
+			,	C_TITLE
+			,	C_CONTENT
+			,	C_ENROLL_DATE
+			,	C_MODIFY_DATE
+			,	C_OPEN
+			,	C_STATUS
+			,	U_NO
+			,   U_ID
+			,   R_DONG
+            ,   R_HO
+            ,   R_NAME
+            ,   C_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , CLIST.*
+		    FROM(SELECT
+                    *
+                     FROM COMPLAINT B
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE C_STATUS = 'Y'
+                    AND C_CONTENT LIKE '%' || ? || '%'
+                    ORDER BY C_NO DESC) CLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecWriterList">
+		SELECT
+		     C_NO
+			,	C_TITLE
+			,	C_CONTENT
+			,	C_ENROLL_DATE
+			,	C_MODIFY_DATE
+			,	C_OPEN
+			,	C_STATUS
+			,	U_NO
+			,   U_ID
+			,   R_DONG
+            ,   R_HO
+            ,   R_NAME
+            ,   C_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , CLIST.*
+		    FROM(SELECT
+                    *
+                     FROM COMPLAINT B
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE C_STATUS = 'Y'
+                    AND U_ID LIKE '%' || ? || '%'
+                    ORDER BY C_NO DESC) CLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>        
+	<entry key="selectList">
+		SELECT
+			      CM_NO
+				, C_NO
+				, CM_CONTENT
+				, CM_ENROLL_DATE
+				, CM_MODIFY_DATE
+				, CM_STATUS
+				, M_NO
+		 FROM COMPLAINT_MANAGER
+		 JOIN COMPLAINT USING(C_NO)
+		 JOIN INFO_MANAGER USING(M_NO)
+		 WHERE CM_STATUS = 'Y'
+		 ORDER BY CM_NO DESC
+	</entry> 
+	<entry key="selectComplaint">
+		SELECT
+              C_NO
+			, C_TITLE
+			, C_CONTENT
+			, C_ENROLL_DATE
+			, C_MODIFY_DATE
+			, C_OPEN
+			, C_STATUS
+			, U_NO
+			, U_ID
+            , R_DONG
+            , R_HO
+            , R_NAME
+            , CM_NO
+		 FROM COMPLAINT 
+		 JOIN MEMBER USING(U_NO)
+         LEFT JOIN INFO_RESIDENT USING(R_NO)
+         LEFT JOIN COMPLAINT_MANAGER USING(C_NO)
+         WHERE C_NO = ?
+		 AND C_STATUS = 'Y'
+	</entry> 
+	
+	<entry key="insertComplaint">
+		INSERT
+		INTO COMPLAINT
+		(
+				C_NO
+			,	C_TITLE
+			,	C_CONTENT
+			,	C_ENROLL_DATE
+			,	C_MODIFY_DATE
+			,	C_OPEN
+			,	C_STATUS
+			,	U_NO
+		)
+		VALUES
+		(
+			COMPLAINT_SEQ.NEXTVAL
+			, ?
+			, ?
+			, SYSDATE
+			, SYSDATE
+			, ?
+			, DEFAULT
+			, ?
+		)
+	</entry> 
+	<entry key="updatecomplaint">
+		UPDATE COMPLAINT
+		   SET C_TITLE = ?
+		     , C_CONTENT = ?
+		     , C_MODIFY_DATE = SYSDATE
+		     , C_OPEN = ?
+		 WHERE C_NO = ? 
+	</entry> 
+	<entry key="deleteComplaint">
+		UPDATE COMPLAINT
+		   SET C_STATUS = 'N'
+		 WHERE C_NO = ? 
+	</entry> 
+	<entry key="selectcno">
+      select COMPLAINT_SEQ.currval from dual
+   </entry>
+   <entry key="insertReply">
+		INSERT
+		INTO COMPLAINT_MANAGER
+		(
+			  CM_NO
+			, C_NO
+			, CM_CONTENT
+			, CM_ENROLL_DATE
+			, CM_MODIFY_DATE
+			, CM_STATUS
+			, M_NO
+		)
+		VALUES
+		(
+			  COMPLAINT_MANAGER_SEQ.NEXTVAL
+			, ?
+			, ?
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, ?
+		)
+	</entry> 
+	<entry key="selectReplyList">
+		SELECT
+		        CM_NO
+             ,  C_NO
+             ,  CM_CONTENT
+             ,  CM_ENROLL_DATE
+             ,  CM_MODIFY_DATE
+             ,  CM_STATUS
+             ,  M_NO
+             ,  M_NICK
+		  FROM COMPLAINT_MANAGER 
+		  JOIN INFO_MANAGER USING (M_NO)
+		 WHERE C_NO = ?
+		   AND CM_STATUS = 'Y'
+		   ORDER BY CM_NO 
+	</entry>   
+	<entry key="deleteReply">
+		UPDATE COMPLAINT_MANAGER
+		   SET CM_STATUS = 'N'
+		 WHERE CM_NO = ? 
+	</entry>  
+	<entry key="countReply">
+	   UPDATE COMPLAINT
+       SET C_REPLY_COUNT = (SELECT
+					              count(*)
+					         FROM COMPLAINT_MANAGER
+					        WHERE CM_STATUS = 'Y'
+					        GROUP BY C_NO
+					       HAVING C_NO = ?)
+       WHERE C_NO = ?
+	</entry> 
+	
+	
+</properties>

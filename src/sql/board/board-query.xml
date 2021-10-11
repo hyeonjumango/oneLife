@@ -1,0 +1,344 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM
+"http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="getListCount">
+		SELECT
+			  COUNT(*)
+		 FROM BOARD
+		WHERE B_STATUS = 'Y'
+	</entry>
+	<entry key="getTitleListCount">
+		SELECT
+			  COUNT(*)
+		 FROM BOARD
+		WHERE B_STATUS = 'Y'
+		  AND B_TITLE LIKE '%' || ? || '%'
+	</entry>
+	<entry key="getContentListCount">
+		SELECT
+			  COUNT(*)
+		 FROM BOARD
+		WHERE B_STATUS = 'Y'
+		  AND B_CONTENT LIKE '%' || ? || '%'
+	</entry>
+	<entry key="getWriterListCount">
+		SELECT
+			  COUNT(*)
+		 FROM BOARD 
+		 JOIN MEMBER USING(U_NO)
+		 JOIN INFO_RESIDENT USING(R_NO)
+		WHERE B_STATUS = 'Y'
+		  AND U_NICKNAME LIKE '%' || ? || '%'
+	</entry>
+	<entry key="selectsearchList">
+		SELECT
+		      B_NO
+			, B_TITLE
+			, B_CONTENT
+			, B_ENROLL_DATE
+			, B_MODIFY_DATE
+			, B_COUNT
+			, B_STATUS
+			, U_NO
+			, U_NICKNAME
+            , B_REPLY_COUNT
+            , B_LIKECNT
+		FROM(SELECT ROWNUM RNUM
+				  , BLIST.*
+		    FROM(SELECT
+                    *
+                     FROM BOARD 
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE B_STATUS = 'Y'
+                    ORDER BY B_NO DESC) BLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecTitleList">
+		SELECT
+		      B_NO
+			, B_TITLE
+			, B_CONTENT
+			, B_ENROLL_DATE
+			, B_MODIFY_DATE
+			, B_COUNT
+			, B_STATUS
+			, U_NO
+			, U_NICKNAME
+			, B_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , BLIST.*
+		    FROM(SELECT
+                    *
+                     FROM BOARD 
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE B_STATUS = 'Y'
+                    AND B_TITLE LIKE '%' || ? || '%'
+                    ORDER BY B_NO DESC) BLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecContentList">
+	SELECT
+		      B_NO
+			, B_TITLE
+			, B_CONTENT
+			, B_ENROLL_DATE
+			, B_MODIFY_DATE
+			, B_COUNT
+			, B_STATUS
+			, U_NO
+			, U_NICKNAME
+			, B_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , BLIST.*
+		    FROM(SELECT
+                    *
+                     FROM BOARD 
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE B_STATUS = 'Y'
+                    AND B_CONTENT LIKE '%' || ? || '%'
+                    ORDER BY B_NO DESC) BLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecWriterList">
+		SELECT
+		      B_NO
+			, B_TITLE
+			, B_CONTENT
+			, B_ENROLL_DATE
+			, B_MODIFY_DATE
+			, B_COUNT
+			, B_STATUS
+			, U_NO
+			, U_NICKNAME
+			, B_REPLY_COUNT
+		FROM(SELECT ROWNUM RNUM
+				  , BLIST.*
+		    FROM(SELECT
+                    *
+                     FROM BOARD 
+                     JOIN MEMBER USING (U_NO)
+                     JOIN INFO_RESIDENT USING (R_NO)
+                    WHERE B_STATUS = 'Y'
+                    AND U_NICKNAME LIKE '%' || ? || '%'
+                    ORDER BY B_NO DESC) BLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>        
+	<entry key="selectList">
+		SELECT
+			      CM_NO
+				, C_NO
+				, CM_CONTENT
+				, CM_ENROLL_DATE
+				, CM_MODIFY_DATE
+				, CM_STATUS
+				, M_NO
+		 FROM COMPLAINT_MANAGER
+		 JOIN COMPLAINT USING(C_NO)
+		 JOIN INFO_MANAGER USING(M_NO)
+		 WHERE CM_STATUS = 'Y'
+		 ORDER BY CM_NO DESC
+	</entry> 
+	<entry key="selectBoard">
+		  SELECT
+              B.B_NO
+			, B_TITLE
+			, B_CONTENT
+			, B_ENROLL_DATE
+			, B_MODIFY_DATE
+			, B_COUNT
+			, B_STATUS
+			, B.U_NO
+			, U_NICKNAME
+            , BC_NO
+            , B_REPLY_COUNT
+            , B_LIKECNT
+		 FROM BOARD B, MEMBER M, BOARD_COMMENT C
+		 WHERE B.U_NO = M.U_NO 
+         AND B.B_NO = C.B_NO(+)
+         AND B.B_NO = ?
+		 AND B_STATUS = 'Y'
+	</entry> 
+	
+	<entry key="insertBoard">
+		INSERT
+		INTO BOARD
+		(
+				B_NO
+			,	B_TITLE
+			,	B_CONTENT
+			,	B_ENROLL_DATE
+			,	B_MODIFY_DATE
+			,	B_COUNT
+			,	B_STATUS
+			,	U_NO
+		)
+		VALUES
+		(
+			BOARD_SEQ.NEXTVAL
+			, ?
+			, ?
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, DEFAULT
+			, ?
+		)
+	</entry> 
+	<entry key="selectbno">
+      select BOARD_SEQ.currval from dual
+   </entry>
+   <entry key="increaseCount">
+		UPDATE BOARD
+		   SET B_COUNT = B_COUNT +1
+		 WHERE B_NO = ? 
+		   AND B_STATUS = 'Y'
+	</entry>
+	<entry key="updateBoard">
+		UPDATE BOARD
+		   SET B_TITLE = ?
+		     , B_CONTENT = ?
+		     , B_MODIFY_DATE = SYSDATE
+		 WHERE B_NO = ? 
+	</entry> 
+	<entry key="deleteBoard">
+		UPDATE BOARD
+		   SET B_STATUS = 'N'
+		 WHERE B_NO = ? 
+	</entry> 
+	
+   <entry key="insertReply">
+		INSERT
+		INTO BOARD_COMMENT
+		(
+			  BC_NO
+			, B_NO
+			, BC_CONTENT
+			, BC_ENROLL_DATE
+			, BC_MODIFY_DATE
+			, BC_STATUS
+			, U_NO
+		)
+		VALUES
+		(
+			  BOARD_COMMENT_SEQ.NEXTVAL
+			, ?
+			, ?
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, ?
+		)
+	</entry> 
+	<entry key="selectReplyList">
+		SELECT
+	          BC_NO
+			, B_NO
+			, BC_CONTENT
+			, BC_ENROLL_DATE
+			, BC_MODIFY_DATE
+			, BC_STATUS
+			, U_NO
+			, U_NICKNAME
+		  FROM BOARD_COMMENT 
+		  JOIN MEMBER USING (U_NO)
+		 WHERE B_NO = ?
+		   AND BC_STATUS = 'Y'
+		   ORDER BY BC_NO 
+	</entry>   
+	<entry key="deleteReply">
+		UPDATE BOARD_COMMENT
+		   SET BC_STATUS = 'N'
+		 WHERE BC_NO = ? 
+	</entry>    
+	<entry key="countReply">
+	   UPDATE BOARD
+       SET B_REPLY_COUNT = (SELECT
+                                  count(*)
+                             FROM BOARD_COMMENT
+                            WHERE BC_STATUS = 'Y'
+                            GROUP BY B_NO
+                           HAVING B_NO = ?)
+       WHERE B_NO = ?
+	</entry> 
+	<entry key="selectcountReply">
+	  SELECT
+              B_REPLY_COUNT
+		 FROM BOARD 
+		 WHERE B_NO = ?
+		 AND B_STATUS = 'Y'
+	</entry> 
+	<entry key="insertHeart">
+		INSERT
+		INTO BOARD_LIKE
+		(
+			 U_NO
+			, B_NO
+			, BL_DATE
+			, BL_STATUS
+			, BL_NO
+		)
+		VALUES
+		(
+			  ?
+			, ?
+			, SYSDATE
+			, DEFAULT
+			, BOARD_LIKE_SEQ.NEXTVAL
+		)
+	</entry>  
+	<entry key="countHeart">
+	   UPDATE BOARD
+	   SET B_LIKECNT = (SELECT COUNT(*)
+	                                FROM BOARD_LIKE
+	                                GROUP BY B_NO 
+	                                HAVING B_NO = ?)
+	   WHERE B_NO = ?
+	</entry>  
+    <entry key="selectHeart">
+	  SELECT 
+	      B_LIKECNT
+	    FROM BOARD 
+	   WHERE B_NO = ?
+	</entry> 
+	<entry key="deleteHeart">
+	  DELETE FROM BOARD_LIKE
+		 WHERE B_NO = ?
+	     AND U_NO = ?
+	</entry> 
+	
+	<entry key="reportWrite">
+	insert into "BOARD_REPORT"
+	values (?, ?, NULL)
+	</entry>
+	<entry key="reportReply">
+	insert into "BOARD_REPORT"
+	values (?, NULL, ?)
+	</entry>
+	<entry key="chekcUnoWrite">
+	select count(u_no) from board_report
+	where u_no = ? and b_no = ?
+	</entry>
+	<entry key="chekcUnoReply">
+	select count(u_no) from board_report
+	where u_no = ? and bc_no = ?
+	</entry> 
+	
+	<entry key="selectUsercnt">
+	SELECT COUNT(U_NO) FROM BOARD_LIKE
+	WHERE B_NO = ? AND U_NO = ?
+	</entry> 
+	<entry key="replyCnt">
+	 SELECT
+              B_REPLY_COUNT
+		 FROM BOARD 
+		 WHERE B_NO = ?
+		 AND B_STATUS = 'Y'
+	</entry> 
+	
+	
+	
+</properties>

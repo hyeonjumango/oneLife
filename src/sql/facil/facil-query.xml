@@ -1,0 +1,316 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="getListCount">
+    SELECT
+         COUNT(*) AS COUNT
+          FROM (
+            SELECT
+           ROWNUM ROWN
+         , FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM (
+            SELECT
+           FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+            WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+            WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+            ELSE '사용중'
+            END AS FC_STATUS
+         FROM FACILITY
+         JOIN MEMBER USING(U_NO)
+         JOIN INFO_RESIDENT USING(R_NO)
+         ORDER BY FC_DATE DESC
+         )
+         )
+	</entry>
+	<entry key="selectListFacil">
+     	         SELECT
+         *
+          FROM (
+            SELECT
+           ROWNUM ROWN
+         , FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM (
+            SELECT
+           FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+            WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+            WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+            ELSE '사용중'
+            END AS FC_STATUS
+         FROM FACILITY
+         JOIN MEMBER USING(U_NO)
+         JOIN INFO_RESIDENT USING(R_NO)
+         ORDER BY FC_DATE DESC
+         )
+         )
+         WHERE ROWN BETWEEN ? AND ?
+	</entry>
+	<entry key="selectSearchListFacil">
+		    SELECT
+         *
+          FROM (
+            SELECT
+           ROWNUM ROWN
+         , FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM (
+            SELECT
+           FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , CASE WHEN FC_STATUS = 'Y' THEN '예약취소'
+            WHEN SYSDATE - FC_START &lt;= 0 THEN '사용전'
+            WHEN (SYSDATE - FC_END &gt;= 0) THEN '사용완료'
+            ELSE '사용중'
+          END AS FC_STATUS
+         FROM FACILITY
+         JOIN MEMBER USING(U_NO)
+         JOIN INFO_RESIDENT USING(R_NO)
+         ORDER BY FC_DATE DESC
+         )
+         <!-- WHERE FC_NAME IS NOT NULL -->
+        <!-- dao에서 계속작성됨 -->
+        <!--  )
+         WHERE ROWN BETWEEN 1 AND 10 -->
+	</entry>
+	<entry key="removeFacil">
+		UPDATE FACILITY
+		   SET FC_STATUS = 'Y'
+		   WHERE FC_NO = ?
+	</entry>
+	
+	<entry key="librarySelectList">
+             SELECT
+         FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM (
+            SELECT
+           FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM FACILITY
+         JOIN MEMBER USING(U_NO)
+         JOIN INFO_RESIDENT USING(R_NO)
+         WHERE FC_NAME = '독서실'
+           AND TO_CHAR(FC_START, 'YYYY-MM-DD') = ?
+         ORDER BY FC_SEAT_NO 
+         )
+	</entry>
+	<entry key="libraryInfo">
+		SELECT
+		         FC_NO
+		         , FC_NAME
+		         , FC_SEAT_NO
+		         , FC_SEAT_TYPE
+		         , U_ID
+		         , R_NAME
+		         , U_PHONE
+		         , FC_DATE
+		         , FC_START
+		         , FC_END
+		         , FC_STATUS
+		         FROM (
+		            SELECT
+		           FC_NO
+		         , FC_NAME
+		         , FC_SEAT_NO
+		         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+		         , U_ID
+		         , R_NAME
+		         , U_PHONE
+		         , FC_DATE
+		         , FC_START
+		         , FC_END
+		         , FC_STATUS
+		         FROM FACILITY
+		         JOIN MEMBER USING(U_NO)
+		         JOIN INFO_RESIDENT USING(R_NO)
+		         WHERE FC_NAME = '독서실'
+		           AND TO_CHAR(FC_START, 'YYYY-MM-DD') = ?
+		           AND FC_SEAT_NO = ?
+		         ORDER BY FC_SEAT_NO 
+		         )
+	</entry>
+	<entry key="libraryDayCount">
+		       SELECT
+                COUNT(*) AS COUNT
+                FROM(SELECT
+         FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM (
+            SELECT
+           FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM FACILITY
+         JOIN MEMBER USING(U_NO)
+         JOIN INFO_RESIDENT USING(R_NO)
+         WHERE FC_NAME = '독서실'
+           AND TO_CHAR(FC_START, 'YYYY-MM-DD') = ?
+           AND U_NO = ?
+         ORDER BY FC_SEAT_NO 
+         ))
+	</entry>
+	<entry key="multicourtSelectList">
+             SELECT
+			         FC_NO
+			         , FC_NAME
+			         , FC_SEAT_NO
+			         , FC_SEAT_TYPE
+			         , U_ID
+			         , R_NAME
+			         , U_PHONE
+			         , FC_DATE
+			         , FC_START
+			         , FC_END
+			         , FC_STATUS
+			         FROM (
+			            SELECT
+			           FC_NO
+			         , FC_NAME
+			         , FC_SEAT_NO
+			         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+			         , U_ID
+			         , R_NAME
+			         , U_PHONE
+			         , FC_DATE
+			         , FC_START
+			         , FC_END
+			         , FC_STATUS
+			         FROM FACILITY
+			         JOIN MEMBER USING(U_NO)
+			         JOIN INFO_RESIDENT USING(R_NO)
+			         WHERE FC_NAME = '멀티코트장'
+			           AND TO_CHAR(FC_START, 'YYYY-MM-DD') = ?
+			           <!-- AND TO_CHAR(FC_START, 'HH') = ? -->
+			           AND FC_STATUS = 'N'
+			         ORDER BY FC_SEAT_TYPE
+			         )
+	</entry>
+	<entry key="multiInfo">
+		       SELECT
+         FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM (
+            SELECT
+           FC_NO
+         , FC_NAME
+         , FC_SEAT_NO
+         , DECODE(FC_NAME, '독서실', '일일권', '멀티코트장', DECODE(FC_SEAT_NO, 1, 'A', 2, 'B', 3, 'C')) AS FC_SEAT_TYPE
+         , U_ID
+         , R_NAME
+         , U_PHONE
+         , FC_DATE
+         , FC_START
+         , FC_END
+         , FC_STATUS
+         FROM FACILITY
+         JOIN MEMBER USING(U_NO)
+         JOIN INFO_RESIDENT USING(R_NO)
+         WHERE FC_NAME = '멀티코트장'
+           AND TO_CHAR(FC_START, 'YYYY-MM-DD') = ?
+           <!-- AND TO_CHAR(FC_START, 'HH') = ? -->
+           AND FC_STATUS = 'N'
+           AND FC_NO = ?
+         ORDER BY FC_SEAT_TYPE DESC
+         )
+	</entry>
+</properties>

@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectMemberCar">
+		SELECT
+		r_name
+		, r_dong
+		, r_ho
+		, mc_id
+		, mc_no
+		, c_phone
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from member_car
+		join info_resident using (r_no)
+		where mc_status = 'N'
+		order by r_dong asc, r_ho asc, mc_id) VLIST)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="excelSelectMemberCar">
+		SELECT
+		r_name
+		, r_dong
+		, r_ho
+		, mc_id
+		, mc_no
+		, c_phone
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from member_car
+		join info_resident using (r_no)
+		where mc_status = 'N'
+		order by r_dong asc, r_ho asc, mc_id) VLIST)
+	</entry>
+	<entry key="insertMemberCar">
+		insert into member_car
+		values (membercar_seq.nextval,
+		?, sysdate, sysdate, ?, 'N', ?, ?)
+	</entry>
+	<entry key="oneHouseHoldCarList">
+		select
+		r_name
+		, r_dong
+		, r_ho
+		, mc_id
+		, mc_no
+		, c_phone
+		from member_car
+		join info_resident using (r_no)
+		where mc_status = 'N'
+		and r_dong = ? and r_ho = ?
+		order by mc_id
+	</entry>
+
+	<entry key="selectRno">
+		select r_no
+		from info_resident
+		where r_dong = ?
+		and r_ho = ?
+		and r_name = ?
+	</entry>
+
+	<entry key="deleteMemberCar">
+		update member_car
+		set mc_status = 'Y'
+		where mc_id = ?
+	</entry>
+	<entry key="getMemberCarCount">
+		select count(*)
+		from MEMBER_CAR
+		join info_resident using (r_no)
+		where mc_status = 'N'
+	</entry>
+	<entry key="searchSelectMemberCar">
+		SELECT
+		r_name
+		, r_dong
+		, r_ho
+		, mc_id
+		, mc_no
+		, c_phone
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from member_car
+		join info_resident using (r_no)
+		where mc_status = 'N'		
+	</entry>
+</properties>

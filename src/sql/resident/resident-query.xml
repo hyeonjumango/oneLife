@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="listCount">
+		SELECT
+			   COUNT(*) AS COUNT
+	      FROM INFO_RESIDENT
+	</entry>
+	<entry key="residentAllList">
+		<!-- SELECT
+		       *
+		       FROM(SELECT
+		      ROWNUM ROWN
+		      ,  R_NO
+		      , R_DONG
+		      , R_HO
+		      , R_NAME
+		      , R_EMAIL
+		      , R_TYPE
+		      , R_STATUS
+		      , R_DATE
+		   FROM INFO_RESIDENT
+		   ORDER BY R_NO, R_TYPE DESC, R_NAME)
+		   WHERE ROWN BETWEEN ? AND ? -->
+      SELECT
+             *
+             FROM(SELECT 
+				        ROWNUM ROWN
+				      ,  R_NO
+				      , R_DONG
+				      , R_HO
+				      , R_NAME
+				      , R_EMAIL
+				      , R_TYPE
+				      , R_STATUS
+				      , R_DATE
+				      FROM(SELECT
+				        R_NO
+				      , R_DONG
+				      , R_HO
+				      , R_NAME
+				      , R_EMAIL
+				      , R_TYPE
+				      , R_STATUS
+				      , R_DATE
+				      FROM INFO_RESIDENT
+				      ORDER BY R_DONG, R_HO, R_TYPE DESC, R_DATE))
+				      WHERE ROWN BETWEEN ? AND ?
+	</entry>
+	<entry key="oneSelectResident">
+		SELECT
+			    R_NO
+		      , R_DONG
+		      , R_HO
+		      , R_NAME
+		      , R_EMAIL
+		      , R_TYPE
+		      , R_STATUS
+		      , R_DATE
+		      FROM INFO_RESIDENT
+		      WHERE R_DONG = ?
+		        AND R_HO = ?
+		      ORDER BY R_TYPE DESC, R_NAME 
+	</entry>
+	<entry key="maxListCount">
+		SELECT
+	       MAX(R_NO) AS MAX
+	       FROM INFO_RESIDENT
+	</entry>
+	<entry key="oneSelect">
+		SELECT
+		      COUNT(*) AS COUNT
+		      FROM INFO_RESIDENT
+		      WHERE R_DONG = ?
+		        AND R_HO = ?
+		        AND R_NAME = ?
+	</entry>
+	<entry key="oneSelectUpdate">
+		UPDATE INFO_RESIDENT
+		SET R_NAME = ?
+		  , R_EMAIL = ?
+		  , R_TYPE = ?
+		WHERE R_DONG = ?
+		  AND R_HO = ?
+		  AND R_NAME = ?
+	</entry>
+	<entry key="oneSelectInsert">
+		INSERT INTO 
+		            INFO_RESIDENT
+		            (
+		            	  R_NO
+					    , R_DONG
+					    , R_HO
+					    , R_NAME
+					    , R_EMAIL
+					    , R_TYPE
+					    , R_STATUS
+					    , R_DATE
+		            )
+		            VALUES
+		            (
+		            	?
+		              , ?
+		              , ?
+		              , ?
+		              , ?
+		              , ?
+		              , DEFAULT
+		              , SYSDATE
+		            )
+	</entry>
+	<entry key="deleteResident">
+		DELETE
+			  FROM INFO_RESIDENT
+			  WHERE R_DONG = ?
+			    AND R_HO = ?
+	</entry>
+	   <entry key="userInfoSelect">
+   	SELECT
+		       U_NO
+		     , U_ID
+		     , U_NICKNAME
+		     , U_PHONE
+		     , REG_DATE
+		     , R_NAME
+		     , R_DONG
+		     , R_HO
+		     FROM INFO_RESIDENT
+		     JOIN MEMBER USING(R_NO)
+		     WHERE r_NO = ?
+   </entry>
+</properties>

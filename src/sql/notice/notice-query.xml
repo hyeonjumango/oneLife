@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM
+"http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="getListCount">
+		SELECT
+			  COUNT(*)
+		 FROM NOTICE
+		WHERE STATUS = 'Y'
+	</entry>
+	<entry key="getTitleListCount">
+		SELECT
+			  COUNT(*)
+		 FROM NOTICE
+		WHERE STATUS = 'Y'
+		  AND N_TITLE LIKE '%' || ? || '%'
+	</entry>
+	<entry key="selectsearchList">
+		SELECT
+		      N_NO
+			   , N_TITLE
+			   , N_CONTENT
+			   , N_COUNT
+			   , ENROLL_DATE
+			   , MODIFY_DATE
+			   , STATUS
+			   , M_NO
+			   , M_NICK
+		FROM(SELECT ROWNUM RNUM
+				  , NLIST.*
+		    FROM(SELECT
+                    *
+		         FROM NOTICE 
+				 JOIN INFO_MANAGER USING(M_NO)
+				 WHERE STATUS = 'Y'
+				 ORDER BY N_NO DESC) NLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selecTitleList">
+		SELECT
+		      N_NO
+			   , N_TITLE
+			   , N_CONTENT
+			   , N_COUNT
+			   , ENROLL_DATE
+			   , MODIFY_DATE
+			   , STATUS
+			   , M_NO
+			   , M_NICK
+		FROM(SELECT ROWNUM RNUM
+				  , NLIST.*
+		    FROM(SELECT
+                    *
+		         FROM NOTICE 
+				 JOIN INFO_MANAGER USING(M_NO)
+				 WHERE STATUS = 'Y'
+				  AND N_TITLE LIKE '%' || ? || '%'
+				 ORDER BY N_NO DESC) NLIST)
+	    WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="selectList">
+		SELECT
+		     N_NO
+		   , N_TITLE
+		   , N_CONTENT
+		   , N_COUNT
+		   , ENROLL_DATE
+		   , MODIFY_DATE
+		   , STATUS
+		   , M_NO
+		   , M_NICK
+		 FROM NOTICE 
+		 JOIN INFO_MANAGER USING(M_NO)
+		 WHERE STATUS = 'Y'
+		 ORDER BY N_NO DESC
+	</entry> 
+	<entry key="increaseCount">
+		UPDATE NOTICE
+		   SET N_COUNT = N_COUNT +1
+		 WHERE N_NO = ? 
+		   AND STATUS = 'Y'
+	</entry>
+	<entry key="selectNotice">
+		SELECT
+			  N_NO
+			, N_TITLE
+			, N_CONTENT
+			, N_COUNT
+			, ENROLL_DATE
+			, MODIFY_DATE
+			, STATUS
+			, M_NO
+			, M_NICK
+		 FROM NOTICE
+		 JOIN INFO_MANAGER USING(M_NO)
+		WHERE N_NO = ?
+		  AND STATUS = 'Y'
+	</entry> 
+	
+	<entry key="insertNotice">
+		INSERT
+		INTO NOTICE
+		(
+			 N_NO
+		   , N_TITLE
+		   , N_CONTENT
+		   , N_COUNT
+		   , ENROLL_DATE
+		   , MODIFY_DATE
+		   , STATUS
+		   , M_NO
+		)
+		VALUES
+		(
+			NOTICE_SEQ.NEXTVAL
+			, ?
+			, ?
+			, DEFAULT
+			, SYSDATE
+			, SYSDATE
+			, DEFAULT
+			, ?
+		)
+	</entry> 
+	<entry key="updateNotice">
+		UPDATE NOTICE
+		   SET N_TITLE = ?
+		     , N_CONTENT = ?
+		     , MODIFY_DATE = SYSDATE
+		 WHERE N_NO = ? 
+	</entry> 
+	<entry key="deleteNotice">
+		UPDATE NOTICE
+		   SET STATUS = 'N'
+		 WHERE N_NO = ? 
+	</entry> 
+	<entry key="selectVid">
+      select NOTICE_SEQ.currval from dual
+   </entry>
+</properties>

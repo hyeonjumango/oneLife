@@ -1,0 +1,166 @@
+:root {
+  --main-color--: #72c2e7;
+  --title-font--: 35pt;
+  --desc-font--: 20pt;
+  --font--color--: #7c7c7c;
+  --desc--font--: #66788a;
+}
+
+* {
+  box-sizing: border-box;
+  font-family: "SpoqaHanSansKr";
+  color: var(--font--color--);
+}
+
+body {
+  margin: 0;
+}
+
+.addressTable,
+.contactTable {
+  margin: 0 auto;
+  margin-bottom: 40px;
+  width: 100%;
+  border-top: 2px solid gray;
+  text-align: center;
+}
+
+.intro_info {
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+
+#map {
+  margin-bottom: 20px;
+}
+
+.addressTable td,
+.contactTable td {
+  padding: 5px;
+  border-bottom: 1px solid lightgray;
+}
+
+.wrap {
+  width: 700px;
+  display: flex;
+  flex-direction: column;
+  margin: 0 auto;
+}
+.apt_img {
+  width: 700px;
+  height: 400px;
+  object-fit: cover;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+
+.greeting_title {
+  background-color: var(--main-color--);
+  width: 80%;
+  border-radius: 30px;
+  height: 10px;
+  margin: 0 auto;
+  text-align: center;
+  display: table;
+  padding: 8px;
+}
+
+.title {
+  color: white;
+  margin: 0;
+  display: table-cell;
+  vertical-align: middle;
+  font-weight: 500;
+  font-size: 18pt;
+}
+
+.titleEmp {
+  font-weight: 700;
+  color: white;
+  margin: 0;
+}
+
+.greetingContent {
+  padding-top: 20px;
+  text-align: center;
+  line-height: 1.5rem;
+}
+
+.contentEmp {
+  color: var(--main-color--);
+  font-weight: 700;
+}
+
+/* ----view---- */
+.view_table {
+  display: flex;
+  justify-content: center;
+  margin-top: 15px;
+  margin-bottom: 35px;
+}
+
+.view_table > table {
+  border-bottom: 2px solid var(--main-color--);
+  border-top: 2px solid var(--main-color--);
+}
+.table_left {
+  width: 30%;
+  font-weight: 700;
+}
+
+.table_right {
+  width: 70%;
+  margin-left: 20px;
+}
+
+td {
+  border-top: 1px solid lightgray;
+  padding-top: 5px;
+  padding-bottom: 5px;
+}
+
+.no_line {
+  border-top: 0;
+}
+
+.greenDiv {
+  object-fit: cover;
+}
+
+.green {
+  width: 100%;
+}
+
+li {
+  list-style: none;
+}
+
+.green_li li::before {
+  content: "\2022"; /* Add content: \2022 is the CSS Code/unicode for a bullet */
+  color:var(--main-color--); /* Change the color */
+  font-weight: bold; /* If you want it to be bold */
+  display: inline-block; /* Needed to add space between the bullet and the text */
+  width: 1em; /* Also needed for space (tweak if needed) */
+}
+.green_li {
+  margin-top: 30px;
+  margin-bottom: 50px;
+  border-top: 2px solid var(--main-color--);
+  border-bottom: 2px solid var(--main-color--);
+}
+
+.green_li span {
+  font-size: 23px;
+  color: var(--main-color--);
+}
+
+.green_li h3 {
+  margin-top: 5px;
+  margin-bottom: 5px;
+  font-size: 18px;
+  
+}
+.green_li div {
+  margin-top: 25px;
+  margin-bottom: 25px;
+}

@@ -1,0 +1,460 @@
+
+<!DOCTYPE html>
+<html lang="ko">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>????? 코딩리스트</title>
+  <link rel="stylesheet" href="./css/reset.css">
+  <link rel="stylesheet" href="./fonts/fonts.css">
+  <script src="https://code.jquery.com/jquery-3.3.1.js"></script>
+  <style>
+    body,
+    html {
+      width: 100%;
+      height: 100%;
+      padding: 0;
+      margin: 0;
+      letter-spacing: -0.025em;
+    }
+    
+    .sitemap-menu {
+      position: absolute;
+      display: inline-block;
+      overflow-y: scroll;
+      padding-top: 18px;
+      width: 270px;
+      box-sizing: border-box;
+      height: 100%;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    .sitemap-menu::-webkit-scrollbar {
+      width: 5px;
+    }
+    
+    .sitemap-menu::-webkit-scrollbar-thumb {
+      background-color: #eee;
+      border-radius: 5px;
+      overflow: hidden;
+    }
+    
+    .sitemap-menu.mobile {
+      display: none;
+    }
+    
+    .viewersize {
+      position: fixed;
+      padding: 10px 0px;
+      background: #3f6b9d;
+      border-radius: 5px;
+      width: 230px;
+      margin: 10px;
+      left: 0;
+      top: 0;
+      color: #fff;
+      z-index: 10;
+      cursor: pointer;
+    }
+    
+    .sitemap-menu .tabs-btn {
+      padding: 0 10px 10px;
+      ;
+    }
+    
+    .sitemap-menu .tabs-btn li {
+      display: inline-block;
+      margin: 0 5px 5px 0;
+      text-align: center;
+      padding: 5px 10px;
+      background: #aaa;
+      border-radius: 5px;
+      color: #fff;
+      font-size: 13px;
+    }
+    
+    .sitemap-menu .tabs-btn li:last-child {
+      margin-right: 0;
+    }
+    
+    .sitemap-menu .tabs-btn li.on {
+      background: #328ff6;
+    }
+    
+    .sitemap-menu .tabs-btn li a {
+      display: block;
+    }
+    
+    .range-wrap {
+      display: none;
+    }
+    
+    .range-wrap.on {
+      display: block;
+    }
+    
+    .range-wrap .range {
+      margin-bottom: 20px;
+    }
+    
+    .range-wrap .range h4 {
+      padding: 10px;
+      font-size: 17px;
+      padding: 10px 10px 20px;
+      color: #6363ab;
+    }
+    
+    .range-wrap .range>ul {
+      padding-left:0;
+      border-top: 1px solid #ddd;
+      background: #eeffff;
+      margin-bottom: 20px;
+    }
+    
+    .range-wrap:nth-of-type(2) .range>ul {
+      background: #fff2f2
+    }
+    
+    .range-wrap:nth-of-type(3) .range>ul {
+      background: #f4efff;
+    }
+    
+    .range-wrap .range li {
+      border-bottom: 1px solid #ddd;
+      padding: 10px;
+      color: #666;
+      font-size: 14px;
+      list-style: none;
+    }
+    
+    .range-wrap .range li:after {
+      display: block;
+      content: '';
+      clear: both;
+    }
+    
+    .range-wrap .range li .sub-title {
+      display: block;
+    }
+    
+    .range-wrap .range li .btn-wrap {
+      float: right;
+      padding-top: 10px;
+    }
+    
+    .range-wrap .range li .btn-wrap .new-win {
+      display: inline-block;
+      border: 1px solid #666;
+      padding: 3px;
+      font-size: 11px;
+    }
+    
+    .range-wrap .range li .btn-wrap a.on {
+      color: #f00;
+    }
+    
+    iframe {
+      width: calc(100% - 270px);
+      position: absolute;
+      left: 270px;
+      top: 0;
+      height: 100%;
+      box-sizing: border-box;
+      display: inline-block;
+      -webkit-overflow-scrolling: touch;
+    }
+    
+    iframe.mobile {
+      width: 360px;
+      height: 640px;
+      padding: 0;
+      overflow: scroll;
+    }
+  </style>
+</head>
+
+<body>
+  <div class="sitemap-menu">
+    <div class="range-wrap on">
+
+    <div class="range">
+        <h4>메인</h4>
+        <ul>
+          <li>
+            <span class="sub-title">메인페이지</span>
+            <div class="btn-wrap">
+              <a href="./index.html" target="viewer">index.html</a>
+              <a href="./index.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">메인페이지_nodata</span>
+            <div class="btn-wrap">
+              <a href="./index_nodate.html" target="viewer">index_nodate.html</a>
+              <a href="./index_nodate.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">개인정보 수정</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/userInfo.html" target="viewer">./삭제예정/userInfo.html</a>
+              <a href="./삭제예정/userInfo.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="range">
+        <h4>회원정보</h4>
+        <ul>
+          <li>
+            <span class="sub-title">입주자 명부_nodate</span>
+            <div class="btn-wrap">
+              <a href="./resident_list_nodate.html" target="viewer">resident_list_nodate.html</a>
+              <a href="./resident_list_nodate.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">입주자 명부 목록</span>
+            <div class="btn-wrap">
+              <a href="./resident_list.html" target="viewer">resident_list.html</a>
+              <a href="./resident_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">입주자 명부 변경</span>
+
+            <div class="btn-wrap">
+              <a href="./resident_view.html" target="viewer">resident_view.html</a>
+              <a href="./resident_view.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="range">
+        <h4>부대시설</h4>
+        <ul>
+          <li>
+            <span class="sub-title">부대시설 예약관리 목록_nodate</span>
+            <div class="btn-wrap">
+              <a href="./facil_list_nodate.html" target="viewer">facil_list_nodate.html</a>
+              <a href="./facil_list_nodate.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">부대시설 예약관리 목록</span>
+            <div class="btn-wrap">
+              <a href="./facil_list.html" target="viewer">facil_list.html</a>
+              <a href="./facil_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">부대시설 예약관리 목록_팝업1</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/facil_list_pop1.html" target="viewer">facil_list_pop1.html</a>
+              <a href="./삭제예정/facil_list_pop1.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">부대시설 예약관리 목록_팝업2</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/facil_list_pop2.html" target="viewer">facil_list_pop2.html</a>
+              <a href="./삭제예정/facil_list_pop2.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+
+          <li>
+            <span class="sub-title">멀티코트장 예약현황</span>
+            <div class="btn-wrap">
+              <a href="./multicourt.html" target="viewer">multicourt.html</a>
+              <a href="./multicourt.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">멀티코트장 예약현황_팝업</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/pop_multicourt.html" target="viewer">./삭제예정/pop_multicourt.html</a>
+              <a href="./삭제예정/pop_multicourt.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">독서실 예약현황</span>
+            <div class="btn-wrap">
+              <a href="./library.html" target="viewer">library.html</a>
+              <a href="./library.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">독서실 예약현황_팝업</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/pop_library.html" target="viewer">./삭제예정/pop_library.html</a>
+              <a href="./삭제예정/pop_library.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          
+        </ul>
+      </div>
+
+      <div class="range">
+        <h4>주요일정</h4>
+        <ul>
+          <li>
+            <span class="sub-title">주요일정 예약 목록_nodate</span>
+            <div class="btn-wrap">
+              <a href="./weekday_list_nodate.html" target="viewer">weekday_list_nodate.html</a>
+              <a href="./weekday_list_nodate.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">주요일정 예약 목록</span>
+            <div class="btn-wrap">
+              <a href="./weekday_list.html" target="viewer">weekday_list.html</a>
+              <a href="./weekday_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">주요일정 추가/수정</span>
+            <div class="btn-wrap">
+              <a href="./weekday_view.html" target="viewer">weekday_view.html</a>
+              <a href="./weekday_view.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="range">
+        <h4>신고내역</h4>
+        <ul>
+          <li>
+            <span class="sub-title">신고내역 목록_nodate</span>
+            <div class="btn-wrap">
+              <a href="./report_list_nodate.html" target="viewer">report_list_nodate.html</a>
+              <a href="./report_list_nodate.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">신고내역 목록_게시글</span>
+            <div class="btn-wrap">
+              <a href="./report_list.html" target="viewer">report_list.html</a>
+              <a href="./report_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">신고내역 목록_댓글</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/report_list.html" target="viewer">삭제예정/report_list.html</a>
+              <a href="./삭제예정/report_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">주요일정 추가/수정</span>
+            <div class="btn-wrap">
+              <a href="./weekday_view.html" target="viewer">weekday_view.html</a>
+              <a href="./weekday_view.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="range">
+        <h4>차량관리</h4>
+        <ul>
+          <li>
+            <span class="sub-title">입주 차량 등록 현황</span>
+            <div class="btn-wrap">
+              <a href="./visitVehicle_list.html" target="viewer">visitVehicle_list.html</a>
+              <a href="./visitVehicle_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">신규차량등록(pop)</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/inVehicle_list_pop1.html" target="viewer">./삭제예정/inVehicle_list_pop1.html</a>
+              <a href="./삭제예정/inVehicle_list_pop1.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">~동 ~호 차량 등록 현황(pop)</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/inVehicle_list_pop2.html" target="viewer">./삭제예정/inVehicle_list_pop2.html</a>
+              <a href="./삭제예정/inVehicle_list_pop2.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">등록차량 삭제(pop)</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/inVehicle_list_pop3.html" target="viewer">./삭제예정/inVehicle_list_pop3.html</a>
+              <a href="./삭제예정/inVehicle_list_pop3.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          
+
+          <li>
+            <span class="sub-title">방문 차량 등록 현황</span>
+            <div class="btn-wrap">
+              <a href="./inVehicle_list.html" target="viewer">inVehicle_list.html</a>
+              <a href="./inVehicle_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">방문 차량 현장접수(pop)</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/visitVehicle_list_pop1.html" target="viewer">./삭제예정/visitVehicle_list_pop1.html</a>
+              <a href="./삭제예정/visitVehicle_list_pop1.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">업체 차량 등록 현황</span>
+            <div class="btn-wrap">
+              <a href="./companyVehicle_list.html" target="viewer">companyVehicle_list.html</a>
+              <a href="./companyVehicle_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">업체 차량 신규 등록(pop)</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/companyVehicle_list_pop1.html" target="viewer">./삭제예정/companyVehicle_list_pop1.html</a>
+              <a href="./삭제예정/companyVehicle_list_pop1.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <div class="range">
+        <h4>관리자 정보</h4>
+        <ul>
+          <li>
+            <span class="sub-title">관리자 명부 목록</span>
+            <div class="btn-wrap">
+              <a href="./manager_list.html" target="viewer">manager_list.html</a>
+              <a href="./manager_list.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">관리자 명부 추가</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/manager_list1.html" target="viewer">./삭제예정/manager_list1.html</a>
+              <a href="./삭제예정/manager_list1.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+          <li>
+            <span class="sub-title">관리자 명부 변경</span>
+            <div class="btn-wrap">
+              <a href="./삭제예정/manager_list2.html" target="viewer">./삭제예정/manager_list2.html</a>
+              <a href="./삭제예정/manager_list2.html" target="_blank" class="new-win">새창</a>
+            </div>
+          </li>
+         
+        </ul>
+      </div>
+
+    </div>
+  </div>
+  <iframe src="" name="viewer" class="" style="overflow:hidden;"></iframe>
+
+</body>
+
+</html>

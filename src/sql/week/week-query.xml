@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="weekSelectList">
+		SELECT
+		*
+		FROM(
+		SELECT
+		ROWNUM ROWN
+		, SC_NO
+		, SC_OPEN_DATE
+		, SC_TITLE
+		, SC_CONTENT
+		, SC_IN_DATE
+		, SC_STATUS
+		, SC_CATE_CODE
+		, SC_CATE_NAME
+		FROM (SELECT
+		SC_NO
+		, SC_OPEN_DATE
+		, SC_TITLE
+		, SC_CONTENT
+		, SC_IN_DATE
+		, SC_STATUS
+		, SC_CATE_CODE
+		, SC_CATE_NAME
+		FROM SC_SCHEDULE
+		JOIN SC_CATEGORY USING(SC_CATE_CODE)
+		ORDER BY SC_NO DESC)
+		)
+		WHERE ROWN BETWEEN ? AND ?
+	</entry>
+	<entry key="weekSelectSearchList">
+		SELECT
+		*
+		FROM(
+		SELECT
+		ROWNUM ROWN
+		, SC_NO
+		, SC_OPEN_DATE
+		, SC_TITLE
+		, SC_CONTENT
+		, SC_IN_DATE
+		, SC_STATUS
+		, SC_CATE_CODE
+		, SC_CATE_NAME
+		FROM (SELECT
+		SC_NO
+		, SC_OPEN_DATE
+		, SC_TITLE
+		, SC_CONTENT
+		, SC_IN_DATE
+		, SC_STATUS
+		, SC_CATE_CODE
+		, SC_CATE_NAME
+		FROM SC_SCHEDULE
+		JOIN SC_CATEGORY USING(SC_CATE_CODE)
+		<!-- DAO에서 이어서작성됨 -->
+	</entry>
+	<entry key="listCount">
+		SELECT
+		       COUNT(*) AS COUNT
+		 FROM SC_SCHEDULE
+	</entry>
+	<entry key="selectOneList">
+		SELECT
+			  SC_NO
+			, SC_OPEN_DATE
+			, SC_TITLE
+			, SC_CONTENT
+			, SC_IN_DATE
+			, SC_STATUS
+			, SC_CATE_CODE
+		 FROM SC_SCHEDULE
+		WHERE SC_NO = ?
+	</entry>
+	<entry key="maxCount">
+		SELECT
+			  MAX(SC_NO) AS MAX
+	     FROM SC_SCHEDULE
+	</entry>
+	<entry key="insertWeek">
+		INSERT INTO SC_SCHEDULE
+		(
+			SC_NO
+			, SC_OPEN_DATE
+			, SC_TITLE
+			, SC_CONTENT
+			, SC_IN_DATE
+			, SC_STATUS
+			, SC_CATE_CODE
+		)
+		VALUES(
+			?
+		  , ?
+		  , ?
+		  , ?
+		  , SYSDATE
+		  , ?
+		  , ? 
+		)
+	
+	</entry>
+	<entry key="insertWeekUP">
+		INSERT INTO SC_SCHEDULE
+		(
+			SC_NO
+			, SC_OPEN_DATE
+			, SC_TITLE
+			, SC_IN_DATE
+			, SC_STATUS
+			, SC_CATE_CODE
+			, nno
+		)
+		VALUES(
+			?
+		  , ?
+		  , ?
+		  , SYSDATE
+		  , default
+		  , ?
+		  , ?
+		)
+	
+	</entry>
+	<entry key="updateWeek">
+		UPDATE SC_SCHEDULE
+		SET SC_STATUS = ?
+		  , SC_OPEN_DATE = ?
+		  , SC_CATE_CODE = ?
+		  , SC_TITLE = ?
+		  , SC_CONTENT = ?
+		  WHERE SC_NO = ?
+	</entry>
+	<entry key="removeWeek">
+		UPDATE SC_SCHEDULE
+		   SET SC_STATUS = 'N'
+		   WHERE SC_NO = ?
+	
+	</entry>
+	<entry key="oneDayList">
+		SELECT
+		*
+		FROM SC_SCHEDULE
+		JOIN SC_CATEGORY USING(SC_CATE_CODE)
+         where sc_open_date =  to_date(?, 'YYYY-MM-DD')
+         and sc_status = 'Y'
+		ORDER BY SC_NO
+	</entry>
+	<entry key="checkNno">
+	select * from sc_schedule where nno = ? and sc_status = 'Y'
+	</entry>
+	<entry key="deleteWeekUP">
+	UPDATE SC_SCHEDULE
+		   SET SC_STATUS = 'N'
+		   WHERE nno = ?
+	</entry>
+</properties>

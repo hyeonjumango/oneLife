@@ -1,0 +1,187 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="selectList">
+		SELECT
+		vc_id
+		, vc_date
+		, vc_no
+		, vc_purpose
+		, vc_phone
+		, vc_modifydate
+		, vc_status
+		, r_name
+		, r_dong
+		, r_ho
+		, u_no
+		, m_name
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from MEMBER_VISIT_HISTORY
+		left join member using (u_no)
+		left join 	info_resident using(r_no)
+        full join info_manager using (m_no)
+		where r_dong = ?
+		and r_ho = ? 
+		and delete_status = 'N'
+		order by vc_id desc) VLIST)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	<entry key="userSearchVisitCar">
+	SELECT
+		vc_id
+		, vc_date
+		, vc_no
+		, vc_purpose
+		, vc_phone
+		, vc_modifydate
+		, vc_status
+		, r_name
+		, r_dong
+		, r_ho
+		, u_no
+		, m_name
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from MEMBER_VISIT_HISTORY
+		left join member using (u_no)
+		left join 	info_resident using(r_no)
+        full join info_manager using (m_no)
+		where r_dong = ?
+		and r_ho = ? 
+		and delete_status = 'N'
+	</entry>
+	<entry key="getListCount">
+		select count(*)
+		from MEMBER_VISIT_HISTORY
+		join member
+		using (u_no)
+		join info_resident using(r_no)
+        left join info_manager using (m_no)
+		where delete_status = 'N' 
+		and r_dong = ?
+		and r_ho = ?
+	</entry>
+	<entry key="insertVisitCar">
+		insert into member_visit_history
+		values
+		(VisitCar_seq.nextval,
+		to_date(?, 'YYYY-MM-DD'), ?, ?, ?, sysdate,
+		sysdate, default, ?, default, null)
+	</entry>
+	<entry key="selectVid">
+		select VisitCar_seq.currval from dual
+	</entry>
+	<entry key="selectDetail">
+		select vc_id
+		, vc_date
+		, vc_no
+		, vc_purpose
+		, vc_phone
+		from MEMBER_VISIT_HISTORY
+		where vc_id = ?
+	</entry>
+	<entry key="updateVisitCar">
+		UPDATE member_visit_history
+		SET vc_date = to_date(?, 'YYYY-MM-DD')
+		, vc_no = ?
+		, vc_purpose = ?
+		, vc_phone = ?
+		, vc_modifydate = sysdate
+		WHERE vc_id = ?
+	</entry>
+	<entry key="deleteVisitCar">
+	update member_visit_history
+	set delete_status = 'Y'
+	where vc_id = ?
+	</entry>
+	<entry key="checkVisitCar">
+	update member_visit_history
+	set vc_status = 'Y'
+	where vc_id = ?
+	</entry>
+	<entry key="cancelVisitCar">
+	update member_visit_history
+	set vc_status = 'N'
+	where vc_id = ?
+	</entry>
+	<entry key="adminGetListCount">
+		select count(*)
+		from MEMBER_VISIT_HISTORY
+        join member using (u_no)
+        join info_resident using (r_no)
+		where delete_status = 'N'
+	</entry>
+	<entry key="adminSelectList">
+		SELECT
+		vc_id
+		, vc_date
+		, vc_no
+		, vc_purpose
+		, vc_phone
+		, vc_modifydate
+		, vc_status
+		, r_name
+		, r_dong
+		, r_ho
+		, u_no
+		, m_name
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from MEMBER_VISIT_HISTORY
+		left join member using (u_no)
+		left join 	info_resident using(r_no)
+        full join info_manager using (m_no)
+		where delete_status = 'N'
+		order by vc_id desc) VLIST)
+		WHERE RNUM BETWEEN ? AND ?
+	</entry>
+	
+	<entry key="searchSelectVisitCar">
+	SELECT
+		vc_id
+		, vc_date
+		, vc_no
+		, vc_purpose
+		, vc_phone
+		, vc_modifydate
+		, vc_status
+		, r_name
+		, r_dong
+		, r_ho
+		, u_no
+		, m_name
+		FROM (select
+		ROWNUM RNUM, VLIST.*
+		from (select
+		*
+		from MEMBER_VISIT_HISTORY
+		left join member using (u_no)
+		left join 	info_resident using(r_no)
+        full join info_manager using (m_no)
+		where delete_status = 'N'
+	</entry>
+	<entry key="adminInsertVisitCar">
+		insert into member_visit_history
+		values
+		(VisitCar_seq.nextval,
+		to_date(?, 'YYYY-MM-DD'), ?, ?, ?, sysdate,
+		sysdate, 'Y', ?, default, ?)
+	</entry>
+	<entry key="selectUno">
+		select 
+			u_no
+			from member
+			join info_resident using (r_no) 
+			where r_status = 'Y' 
+			and r_dong = ? 
+			and r_ho = ? 
+			and rownum = 1
+	</entry>
+</properties>

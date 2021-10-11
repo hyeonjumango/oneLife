@@ -1,0 +1,337 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi" />
+    <title>관리자 목록</title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/oneLife/resources/admin/fonts/fonts.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/reset.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/style.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/style.css">
+
+    <!-- js -->
+    <script src="/oneLife/resources/admin/js/jquery-3.6.0.min.js"></script>
+    <script src="/oneLife/resources/admin/js/jquery-ui.js"></script>
+    <script src="/oneLife/resources/admin/js/calendar.js"></script>
+
+</head>
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div class="header">
+                <h1>
+                    <a href="javascript:;">
+                        <span class="ir_so">ONE LIFE LOGO</span>
+                    </a>
+                </h1>
+                <div>
+                    <p><span>관리자</span>님 반갑습니다.</p>
+                    <a href="javascript:;" class="setting"></a>
+                    <a href="javascript:;" class="logout"></a>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container">
+            <nav id="nav">
+                <div class="nav">
+                    <ul class="outer">
+                        <li>
+                            <a href="javascript:;">회원정보</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">입주자 명부</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">부대시설</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">부대시설 예약 관리</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">독서실 예약 현황</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">멀티코트장 예약 현황</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">게시판</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">주요일정 관리</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">신고내역 관리</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">차량관리</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">입주 차량 등록 현황</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">방문 차량 등록 현황</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">업체 차량 등록 현황</a>
+                                </li>
+                            </ul>
+                        </li>   
+                        <li>
+                            <a href="javascript:;">관리자 정보</a>
+                            <ul class="inner">
+                                <li class="on">
+                                    <a href="javascript:;">관리자 명부</a>
+                                </li>
+                            </ul>
+                        </li>   
+                    </ul>
+                </div>
+            </nav>
+
+            <secion id="content">
+                <div class="content">
+                    <div class="list_wrap">
+                        <h2 class="sub_tit">관리자 목록</h2>
+                        <div class="search_box">
+                            <div class="search_bot resident clearfix">
+                                <div class="items clearfix">
+                                    <label for="">검색조건</label>
+                                    <div class="select">
+                                        <select name="" id="reser_fac">
+                                            <option value="">아이디</option>
+                                            <option value="">이름</option>
+                                        </select>
+                                    </div>
+                                    <input type="text" class="input">
+                                    <button type="button" class="btn">검색</button>
+                                </div>
+                               
+                            </div>
+                        </div>
+
+                        <div class="list_content">
+                            <div class="table_wrap resident_list">
+                                <table class="table">
+                                    <colgroup>
+                                        <col width="auto">
+                                        <col width="auto">
+                                        <col width="auto">
+                                        <col width="auto">
+                                        <col width="auto">
+                                        <col width="auto">
+                                    </colgroup>
+                                    <caption class="ir_so">입주자 명부 목록</caption>
+                                    <thead>
+                                        <tr>
+                                            <th>관리자 번호</th>
+                                            <th>아이디</th>
+                                            <th>이름</th>
+                                            <th>계급</th>
+                                            <th>전화번호</th>
+                                            <th>수정</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr>
+                                            <td>1</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>2</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>3</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>4</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>5</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>6</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>7</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>8</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>9</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                        <tr>
+                                            <td>10</td>
+                                            <td>admin</td>
+                                            <td>김관리</td>
+                                            <td>총관리자</td>
+                                            <td>010-1234-5678</td>
+                                            <td>
+                                                <a href="javascript:;" class="tag">변경</a>
+                                            </td>
+                                        </tr>
+                                     </tbody>
+                                </table>
+                            </div>
+                            <!-- 총관리자만 버튼보임 -->
+                            <div class="btn_box">
+                                <a href="javascript:;" class="remove">관리자 추가</a>
+                            </div>
+                          
+                            <div class="paging_wrap">
+                                <a href="javascript:;" class="btn_prev"></a>
+                                <a href="javascript:;" class="btn_num on">1</a>
+                                <a href="javascript:;" class="btn_num">2</a>
+                                <a href="javascript:;" class="btn_num">3</a>
+                                <a href="javascript:;" class="btn_num">4</a>
+                                <a href="javascript:;" class="btn_num">5</a>
+                                <a href="javascript:;" class="btn_next"></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </secion>
+        </div>
+    </div>
+
+    <!-- 팝업영역 -->
+     <!-- 신규회원등록 팝업 -->
+     <div class="popup_wrap" style="display: none;">
+        <div class="dim"></div>
+        <div class="item">
+           <div class="new_admin">
+               <div class="title">신규 관리자 등록</div>
+               <div class="new_item">
+                   <label for="">계정</label>
+                   <input type="text" name="" id="">
+                   <a href="javascript:;" class="idCheck">중복확인</a>
+               </div>
+               <div class="new_item">
+                    <label for="">비밀번호</label>
+                    <input type="password" name="" id="">
+                </div>
+                <div class="new_item">
+                    <label for="">비밀번호 확인</label>
+                    <input type="password" name="" id="">
+                </div>
+                <div class="new_item">
+                    <label for="">휴대폰 번호</label>
+                    <input type="text" name="" id="">
+                </div>
+           </div>
+           <div class="new_btn_box">
+               <a href="javascript:;">등록하기</a>
+               <a href="javascript:;">취소하기</a>
+           </div>
+        </div>
+    </div>
+
+    <!-- 계급변경 -->
+    <div class="popup_wrap" style="display:none;">
+        <div class="dim"></div>
+        <div class="item">
+           <div class="new_admin">
+               <div class="title">관리자 직급 변경</div>
+               <div class="new_item">
+                   <label for="">계정</label>
+                   <input type="text" name="" id="" disabled>
+               </div>
+               <div class="new_item">
+                    <label for="">이름</label>
+                    <input type="text" name="" id="">
+                </div>
+                <div class="new_item">
+                    <label for="">휴대폰 번호</label>
+                    <input type="text" name="" id="">
+                </div>
+                <div class="new_item">
+                    <label for="">직급</label>
+                    <select name="" id="">
+                        <option value="">관리자</option>
+                        <option value="">관리자1</option>
+                    </select>
+                </div>
+           </div>
+           <div class="new_btn_box">
+               <a href="javascript:;">변경하기</a>
+               <a href="javascript:;">취소하기</a>
+           </div>
+        </div>
+    </div>
+    <!-- 팝업영역 -->
+</body>
+
+</html>

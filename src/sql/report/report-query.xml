@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="getListCount">
+	     SELECT
+           COUNT(*) AS COUNT
+           FROM(SELECT
+				       B_NO
+				     , B_TITLE
+				     , B_CONTENT
+				     , B_ENROLL_DATE
+				     , B_MODIFY_DATE
+				     , B_COUNT
+				     , B_STATUS
+				     , U_NO
+				     , U_NICKNAME
+				     , (SELECT
+				        COUNT(*)
+				        FROM BOARD_REPORT SB
+				        WHERE SB.B_NO = B.B_NO) AS REPORT
+				     FROM BOARD B
+				     JOIN MEMBER USING(U_NO)
+				     where B_STATUS = 'Y')
+				     where REPORT >= 5
+				     <!-- 조건문은 이어서 작성하면됨 -->
+</entry>
+<entry key="getListSearchCount">
+	     SELECT
+           COUNT(*) AS COUNT
+           FROM(SELECT
+				       B_NO
+				     , B_TITLE
+				     , B_CONTENT
+				     , B_ENROLL_DATE
+				     , B_MODIFY_DATE
+				     , B_COUNT
+				     , B_STATUS
+				     , U_NO
+				     , U_NICKNAME
+				     , (SELECT
+				        COUNT(*)
+				        FROM BOARD_REPORT SB
+				        WHERE SB.B_NO = B.B_NO) AS REPORT
+				     FROM BOARD B
+				     JOIN MEMBER USING(U_NO))
+				     where REPORT >= 5
+				     <!-- 조건문은 이어서 작성하면됨 -->
+</entry>
+<entry key="selectListReport">
+	     SELECT
+		       *
+		       FROM(
+		       SELECT 
+		       ROWNUM ROWN
+		     , B_NO
+		     , B_TITLE
+		     , B_CONTENT
+		     , B_ENROLL_DATE
+		     , B_MODIFY_DATE
+		     , B_COUNT
+		     , B_STATUS
+		     , U_NO
+		     , U_NICKNAME
+		     , REPORT
+		     FROM (
+		        SELECT
+		       B_NO
+		     , B_TITLE
+		     , B_CONTENT
+		     , B_ENROLL_DATE
+		     , B_MODIFY_DATE
+		     , B_COUNT
+		     , B_STATUS
+		     , U_NO
+		     , U_NICKNAME
+		     , (SELECT
+		        COUNT(*)
+		        FROM BOARD_REPORT SB
+		        WHERE SB.B_NO = B.B_NO) AS REPORT 
+		     FROM BOARD B
+		     JOIN MEMBER USING(U_NO)
+             where B_STATUS = 'Y'
+		     ORDER BY B_NO DESC)
+		     where REPORT >= 5)
+		     WHERE ROWN BETWEEN ? AND ?
+</entry>
+
+<entry key="selectListSearchReport">
+	    SELECT
+		       *
+		       FROM(
+		       SELECT 
+		       ROWNUM ROWN
+		     , B_NO
+		     , B_TITLE
+		     , B_CONTENT
+		     , B_ENROLL_DATE
+		     , B_MODIFY_DATE
+		     , B_COUNT
+		     , B_STATUS
+		     , U_NO
+		     , U_NICKNAME
+		     , REPORT
+		     FROM (
+		        SELECT
+		       B_NO
+		     , B_TITLE
+		     , B_CONTENT
+		     , B_ENROLL_DATE
+		     , B_MODIFY_DATE
+		     , B_COUNT
+		     , B_STATUS	
+		     , U_NO
+		     , U_NICKNAME
+		     , (SELECT
+		        COUNT(*)
+		        FROM BOARD_REPORT SB
+		        WHERE SB.B_NO = B.B_NO) AS REPORT 
+		     FROM BOARD B
+		     JOIN MEMBER USING(U_NO)
+		     <!-- ORDER BY STATUS DESC , REPORT DESC, B_NO DESC
+		     ) -->
+		     
+		     
+		     <!-- )
+		     WHERE ROWN BETWEEN ? AND ? -->
+</entry>
+<entry key="removeReport">
+	UPDATE BOARD
+	   SET B_STATUS = 'N'
+	 WHERE B_NO = ?
+</entry>
+</properties>

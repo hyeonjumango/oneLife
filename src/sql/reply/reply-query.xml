@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+	<entry key="getListCount">
+		 select count(*) as count from 
+		 (select b.*, (select count(*) 
+		 					from board_report sb 
+		 					where sb.bc_no = b.bc_no) as report 
+          					from board_comment b) where report > 4 and bc_status = 'Y'
+	</entry>
+	<entry key="getListSearchCount">
+		SELECT
+       	COUNT(*) AS COUNT
+		       FROM(
+		       SELECT
+		         BC_CONTENT
+		         , (SELECT
+		                   U_NICKNAME
+		                   FROM MEMBER M
+		                   WHERE M.u_no = BOARD_COMMENT.U_NO ) AS COMMENT_U_NICKNAME
+		         ,(SELECT
+		                COUNT(*)
+		                FROM BOARD_REPORT
+		                WHERE B_NO IS NULL
+		                  AND BC_NO = BOARD_COMMENT.BC_NO) AS REPORT
+		         , BOARD_COMMENT.BC_STATUS AS COMMENT_STATUS
+		         
+		         FROM BOARD
+		         JOIN MEMBER USING(U_NO)
+		         JOIN BOARD_COMMENT USING(B_NO)
+		       ) where report > 4
+	</entry>
+	<entry key="selectReplyList">
+	SELECT
+	       *
+	       FROM(SELECT
+	       ROWNUM ROWN
+	     , B_NO
+	     , U_NICKNAME
+	     , B_TITLE
+	     , B_CONTENT
+	     , COMMENT_BC_NO
+	     , COMMENT_ENROLL_DATE
+	     , BC_CONTENT
+	     , COMMENT_U_NO
+	     , COMMENT_U_NICKNAME
+	     , REPORT
+	     , COMMENT_STATUS
+	    FROM(SELECT
+	       B_NO
+	     , U_NICKNAME
+	     , B_TITLE
+	     , B_CONTENT
+	     , BC_NO AS COMMENT_BC_NO
+	     , BOARD_COMMENT.BC_ENROLL_DATE AS COMMENT_ENROLL_DATE
+	     , BC_CONTENT
+	     , BOARD_COMMENT.U_NO AS COMMENT_U_NO
+	     
+	     , (SELECT
+	               U_NICKNAME
+	               FROM MEMBER M
+	               WHERE M.u_no = BOARD_COMMENT.U_NO ) AS COMMENT_U_NICKNAME
+	     ,(SELECT
+	            COUNT(*)
+	            FROM BOARD_REPORT
+	            WHERE B_NO IS NULL
+	              AND BC_NO = BOARD_COMMENT.BC_NO) AS REPORT
+	     , BOARD_COMMENT.BC_STATUS AS COMMENT_STATUS
+	     
+	     FROM BOARD
+	     JOIN MEMBER USING(U_NO)
+	     JOIN BOARD_COMMENT USING(B_NO)
+	     ORDER BY REPORT DESC ,COMMENT_BC_NO DESC)
+	     where report > 4 and COMMENT_STATUS = 'Y')
+	     WHERE ROWN BETWEEN ? AND ?									
+	</entry>
+	<entry key="selectReplySearchList">
+		SELECT
+		       *
+		       FROM(SELECT
+		       ROWNUM ROWN
+		     , B_NO
+		     , U_NICKNAME
+		     , B_TITLE
+		     , B_CONTENT
+		     , COMMENT_BC_NO
+		     , COMMENT_ENROLL_DATE
+		     , BC_CONTENT
+		     , COMMENT_U_NO
+		     , COMMENT_U_NICKNAME
+		     , REPORT
+		     , COMMENT_STATUS
+		    FROM(SELECT
+		       B_NO
+		     , U_NICKNAME
+		     , B_TITLE
+		     , B_CONTENT
+		     , BC_NO AS COMMENT_BC_NO
+		     , BOARD_COMMENT.BC_ENROLL_DATE AS COMMENT_ENROLL_DATE
+		     , BC_CONTENT
+		     , BOARD_COMMENT.U_NO AS COMMENT_U_NO
+		     
+		     , (SELECT
+		               U_NICKNAME
+		               FROM MEMBER M
+		               WHERE M.u_no = BOARD_COMMENT.U_NO ) AS COMMENT_U_NICKNAME
+		     ,(SELECT
+		            COUNT(*)
+		            FROM BOARD_REPORT
+		            WHERE B_NO IS NULL
+		              AND BC_NO = BOARD_COMMENT.BC_NO) AS REPORT
+		     , BOARD_COMMENT.BC_STATUS AS COMMENT_STATUS
+		     FROM BOARD
+		     JOIN MEMBER USING(U_NO)
+		     JOIN BOARD_COMMENT USING(B_NO)
+		     ORDER BY COMMENT_BC_NO DESC) where report > 4	
+	<!-- dao에서 계속작성 -->
+	</entry>
+	<entry key="removeReply">
+		UPDATE BOARD_COMMENT
+		SET BC_STATUS = 'N'
+		WHERE BC_NO = ?
+	</entry>
+
+
+</properties>

@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, user-scalable=no, initial-scale=1"/>
+    <meta name="viewport" content="width=device-width,initial-scale=1.0,user-scalable=no,maximum-scale=1.0,minimum-scale=1.0,target-densitydpi=medium-dpi" />
+    <title></title>
+
+    <!-- css -->
+    <link rel="stylesheet" href="/oneLife/resources/admin/fonts/fonts.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/reset.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/jquery-ui.min.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/style.css">
+    <link rel="stylesheet" href="/oneLife/resources/admin/css/style.css">
+
+    <!-- js -->
+    <script src="/oneLife/resources/admin/js/jquery-3.6.0.min.js"></script>
+    <script src="/oneLife/resources/admin/js/jquery-ui.js"></script>
+    <script src="/oneLife/resources/admin/js/calendar.js"></script>
+
+</head>
+<body>
+    <div id="wrap">
+        <header id="header">
+            <div class="header">
+                <h1>
+                    <a href="javascript:;">
+                        <span class="ir_so">ONE LIFE LOGO</span>
+                    </a>
+                </h1>
+                <div>
+                    <p><span>관리자</span>님 반갑습니다.</p>
+                    <a href="javascript:;" class="setting"></a>
+                    <a href="javascript:;" class="logout"></a>
+                </div>
+            </div>
+        </header>
+        
+        <div class="container">
+            <nav id="nav">
+                <div class="nav">
+                    <ul class="outer">
+                        <li>
+                            <a href="javascript:;">회원정보</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">입주자 명부</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">부대시설</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">부대시설 예약 관리</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">독서실 예약 현황</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">멀티코트장 예약 현황</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">게시판</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">주요일정 관리</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">신고내역 관리</a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li>
+                            <a href="javascript:;">차량관리</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">입주 차량 등록 현황</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">방문 차량 등록 현황</a>
+                                </li>
+                                <li>
+                                    <a href="javascript:;">업체 차량 등록 현황</a>
+                                </li>
+                            </ul>
+                        </li>   
+                        <li>
+                            <a href="javascript:;">관리자 정보</a>
+                            <ul class="inner">
+                                <li>
+                                    <a href="javascript:;">관리자 명부</a>
+                                </li>
+                            </ul>
+                        </li>   
+                    </ul>
+                </div>
+            </nav>
+
+            <secion id="content">
+                <div class="content">
+                    <div class="main_content">
+                        <div class="item_box item_3st clearfix">
+                            <div class="items">
+                               <div class="item_head">
+                                   <h2>금일 주요일정</h2>
+                                   <a href="javascript:;">더보기</a>
+                               </div>
+                               <div class="item_body">
+                                    <div class="main_nodate">
+                                        <p>금일 계획된 주요일정이 없습니다.</p> 
+                                        <img src="/oneLife/resources/admin/images/main_nodata.png" alt="nodate">
+                                    </div>
+                               </div>
+                            </div>
+                            <div class="items">
+                                <div class="item_head">
+                                    <h2>공지사항</h2>
+                                    <a href="javascript:;">더보기</a>
+                                </div>
+                                <div class="item_body">
+                                    <div class="main_nodate">
+                                        <p>공지사항에 글이 존재하지 않습니다.</p> 
+                                        <img src="/oneLife/resources/admin/images/main_nodata.png" alt="nodate">
+                                    </div>
+                                </div>
+                             </div>
+                             <div class="items">
+                                <div class="item_head">
+                                    <h2>미답변 건의 현황</h2>
+                                    <a href="javascript:;">더보기</a>
+                                </div>
+                                <div class="item_body">
+                                    <div class="main_nodate">
+                                        <p>주민간 건의사항이 존재하지 않습니다.</p> 
+                                        <img src="/oneLife/resources/admin/images/main_nodata.png" alt="nodate">
+                                    </div>
+                                </div>
+                             </div>
+                        </div>
+
+                        <div class="item_box">
+                            <div class="items">
+                               <div class="item_head">
+                                   <h2>금일 부대시설 예약현황</h2>
+                                   <a href="javascript:;">더보기</a>
+                               </div>
+                               <div class="item_body">
+                                    <div class="table_wrap">
+                                        <table class="table">
+                                            <colgroup>
+                                                <col width="5%">
+                                                <col width="8%">
+                                                <col width="8%">
+                                                <col width="8%">
+                                                <col width="8%">
+                                                <col width="18%">
+                                                <col width="18%">
+                                                <col width="18%">
+                                                <col width="8%">
+                                            </colgroup>
+                                            <caption class="ir_so">금일 부대시설 예약현황</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>예약 시설</th>
+                                                    <th>예약 타입</th>
+                                                    <th>아이디</th>
+                                                    <th>이름</th>
+                                                    <th>핸드폰 번호</th>
+                                                    <th>예약 일자</th>
+                                                    <th>예약 마감시간</th>
+                                                    <th>예약 상태</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="main_table">
+                                            <div class="main_table_nodate">
+                                                <p>부대시설 예약내역이 존재하지 않습니다.</p>
+                                                <img src="/oneLife/resources/admin/images/main_nodata.png" alt="nodate">
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+
+                        <div class="item_box">
+                            <div class="items">
+                               <div class="item_head">
+                                   <h2>금일 방문차량 예약현황</h2>
+                                   <a href="javascript:;">더보기</a>
+                               </div>
+                               <div class="item_body">
+                                    <div class="table_wrap">
+                                        <table class="table">
+                                            <colgroup>
+                                                <col width="5%">
+                                                <col width="8%">
+                                                <col width="8%">
+                                                <col width="8%">
+                                                <col width="8%">
+                                                <col width="18%">
+                                                <col width="18%">
+                                                <col width="18%">
+                                                <col width="8%">
+                                            </colgroup>
+                                            <caption class="ir_so">금일 부대시설 예약현황</caption>
+                                            <thead>
+                                                <tr>
+                                                    <th>No.</th>
+                                                    <th>방문일</th>
+                                                    <th>차량 번호</th>
+                                                    <th>방문 세대</th>
+                                                    <th>방문 목적</th>
+                                                    <th>신청인</th>
+                                                    <th>신청인 연락처</th>
+                                                    <th>차주 연락처</th>
+                                                    <th>입차 현황</th>
+                                                </tr>
+                                            </thead>
+                                        </table>
+                                        <div class="main_table">
+                                            <div class="main_table_nodate">
+                                                <p>방문차량 예약현황이 존재하지 않습니다.</p>
+                                                <img src="/oneLife/resources/admin/images/main_nodata.png" alt="nodate">
+                                            </div>
+                                        </div>
+                                    </div>
+                               </div>
+                            </div>
+                        </div>
+
+
+                        
+
+                    </div>
+                </div>
+            </secion>
+        </div>
+
+
+
+
+    </div>
+</body>
+
+</html>

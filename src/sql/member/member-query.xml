@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+<entry key="loginMember">
+      select
+      r_no
+      , u_no
+      , u_id
+      , u_nickname
+      , u_pw
+      , u_phone
+      , reg_date
+      , mod_date
+      , u_status
+      , r_dong
+      , r_ho
+      , r_name
+      , r_email
+      , r_type
+      , r_status
+      , r_date
+      from member join info_resident using (R_NO)
+      where u_id = ?
+      and u_pw = ?
+      and u_status = 'Y'
+      </entry>
+
+   <entry key="loginUser_man">
+      select
+           M_NO
+         , M_ID
+         , M_PASSWORD
+         , M_NAME
+         , M_NICK
+         , M_PHONE
+         , M_JOBCODE
+      from INFO_MANAGER
+      where M_ID = ?
+      and M_PASSWORD = ?
+      </entry>
+
+   <entry key="insertMember">
+   INSERT
+      INTO MEMBER
+      (
+      U_NO
+      , U_ID
+      , U_NICKNAME
+      , U_PW
+      , U_PHONE
+      , REG_DATE
+      , MOD_DATE
+      , U_STATUS
+      , R_NO
+      )
+      VALUES
+      (
+        (select max(u_no) from member)+1
+      , ?
+      , ?
+      , ?
+      , ?
+      , SYSDATE
+      , SYSDATE
+      , DEFAULT
+      , ?
+      )
+   </entry>
+   
+   <!-- 
+   <entry key="insertMember">
+   INSERT
+      INTO MEMBER
+      (
+      U_NO
+      , U_ID
+      , U_NICKNAME
+      , U_PW
+      , U_PHONE
+      , REG_DATE
+      , MOD_DATE
+      , U_STATUS
+      , R_NO
+      )
+      VALUES
+      (
+        MEMBER_SEQ.NEXTVAL
+      , ?
+      , ?
+      , ?
+      , ?
+      , SYSDATE
+      , SYSDATE
+      , DEFAULT
+      , ?
+      )
+   </entry>
+    -->
+   <entry key="changeStatus">
+    UPDATE
+     INFO_RESIDENT
+    SET
+       R_STATUS = 'Y'
+    WHERE R_NO = ?
+   </entry>
+   
+   <entry key="checkR">
+   select
+   r_no
+   from info_resident
+    where r_name = ?
+    and r_email = ?
+   </entry>
+   
+   <entry key="idCheck">
+   SELECT
+         COUNT(*)
+       FROM MEMBER
+       WHERE U_ID = ?
+       AND U_STATUS = 'Y'
+   </entry>
+   
+   <entry key="nickCheck">
+      SELECT
+         COUNT(*)
+       FROM MEMBER
+       WHERE U_NICKNAME = ?
+       AND U_STATUS = 'Y'
+   </entry>
+   
+   <entry key="updateMember">
+      UPDATE
+         MEMBER
+      SET
+         U_NICKNAME = ?
+         , U_PHONE = ?
+         , MOD_DATE = SYSDATE
+      WHERE
+         U_NO = ?
+   </entry>
+   
+   <entry key="deleteMember">
+      UPDATE
+           MEMBER
+       SET
+             U_STATUS = 'N'
+          WHERE
+             U_NO = ?
+   </entry>
+
+   <entry key="selectMember">
+       SELECT
+         R_NO
+         , U_NO
+         , U_ID
+         , U_NICKNAME
+         , U_PW
+         , U_PHONE
+         , REG_DATE
+         , MOD_DATE
+         , U_STATUS
+         , R_DONG
+         , R_HO
+         , R_NAME
+         , R_EMAIL
+         , R_TYPE
+         , R_STATUS
+         , R_DATE
+         FROM MEMBER JOIN INFO_RESIDENT USING (R_NO)
+       WHERE U_NO = ?
+         AND U_STATUS = 'Y'
+   </entry>
+   
+   <entry key="updatePwd">
+      UPDATE
+         MEMBER
+       SET
+          U_PW = ? 
+       WHERE
+           U_NO = ?
+       AND U_PW = ?
+   </entry>
+   
+   <entry key="findId">
+      SELECT
+          U_ID
+       FROM MEMBER JOIN INFO_RESIDENT USING (R_NO)
+      WHERE R_NAME = ?
+       AND R_EMAIL = ?
+   </entry>
+   
+   <entry key="findPwd">
+      SELECT
+          U_PW
+       FROM MEMBER JOIN INFO_RESIDENT USING (R_NO)
+      WHERE U_ID = ? 
+       AND R_NAME = ?
+       AND R_EMAIL = ?
+   </entry>
+   
+   <entry key="checkJoin">
+      select count(*)
+      from info_resident
+      where r_no = ? and r_status = 'Y'
+   </entry>
+    <entry key="findInfoResident">
+      SELECT
+          *
+       FROM INFO_RESIDENT
+      WHERE R_EMAIL = ? 
+   </entry>
+</properties>
